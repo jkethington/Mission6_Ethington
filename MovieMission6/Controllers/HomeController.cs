@@ -24,7 +24,7 @@ namespace MovieMission6.Controllers
         [HttpPost]
         public IActionResult Collection(NewMovie newMovie)
         {
-            return View(newMovie);
+            return View("Confirmation", newMovie);
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
