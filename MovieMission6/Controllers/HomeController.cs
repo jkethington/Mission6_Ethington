@@ -15,6 +15,18 @@ namespace MovieMission6.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Collection()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Collection(NewMovie newMovie)
+        {
+            return View(newMovie);
+        }
+
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 
     }
