@@ -10,8 +10,8 @@ using MovieMission6.Models;
 namespace MovieMission6.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20260215024607_MakeLentToNullable")]
-    partial class MakeLentToNullable
+    [Migration("20260215030205_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,11 +37,9 @@ namespace MovieMission6.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LentTo")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("TEXT");
 
