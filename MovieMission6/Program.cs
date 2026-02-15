@@ -6,13 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<MovieMission6.Models.MovieContext>(options =>
-{
-    options.UseSqlite(builder.Configuration["ConnectionStrings : myConnection"]);
-});
+    options.UseSqlite(builder.Configuration.GetConnectionString("myConnection")));
 
-
-
-    //options.UseSqlite(builder.Configuration.GetConnectionString("MovieContext")));
+//options.UseSqlite(builder.Configuration.GetConnectionString("MovieContext")));
 
 var app = builder.Build();
 
@@ -25,6 +21,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
