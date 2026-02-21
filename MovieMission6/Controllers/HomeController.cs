@@ -1,15 +1,18 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MovieMission6.Models;
+using SQLitePCL;
+using System.Diagnostics;
 
 namespace MovieMission6.Controllers
 {
     public class HomeController : Controller
     {
-        private MovieContext _content;
-        public HomeController(MovieContext name) 
+        private MovieContext _context;
+        public HomeController(MovieContext name)
         {
-            _content = name;
+            _context = name;
         }
 
         public IActionResult Index()
@@ -24,20 +27,72 @@ namespace MovieMission6.Controllers
         [HttpGet]
         public IActionResult Collection()
         {
+            ViewBag.Categories = _context.Categories.ToList();
             return View();
         }
+
+        //    var categories = _context.Categories.ToList();
+        //    return View("Collection");
+        //}
 
         [HttpPost]
         public IActionResult Collection(NewMovie newMovie)
         {
             //_content.NewMovie.Add(newMovie);
-            _content.MovieCollection.Add(newMovie);
-            _content.SaveChanges();
+            _context.MovieCollection.Add(newMovie);
+            _context.SaveChanges();
 
             return View("Confirmation", newMovie);
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 
+        public IActionResult FullCollection()
+        {
+            //var movies = _content.MovieCollection.ToList();
+            //return View(movies);
+            if (ModelState.IsValid)
+                var movies = _context.MovieCollection
+                    .Where(m => m.Title != null)
+                    .OrderBy(m => m.Title).ToList();
+                return View(movies);
+            Else
+                {
+                    return View("NewMovie");
+            }
+                
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var recordToEdit = _context.MovieCollection.Where(m => m.MovieId == id);
+
+            ViewBag.Categories = _context.Categories.ToList();
+            return View("Collection", recordToEdit);
+        }
+        [HttpPost]
+        public IActionResult Edit(NewMovie newMovie)
+        {
+            _context.MovieCollection.Update(newMovie);
+            _context.SaveChanges();
+            return RedirectToAction("FullCollection");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var recordToDelete = _context.MovieCollection.Single(m => m.MovieId == id);
+
+
+            return View(recordToDelete);
+
+        }
+        [HttpPost]
+        public IActionResult Delete(NewMovie newMovie)
+        {
+            _context.MovieCollection.Remove(newMovie);
+            _context.SaveChanges();
+
+            return RedirectToAction("FullCollection");
+        }
     }
 }
