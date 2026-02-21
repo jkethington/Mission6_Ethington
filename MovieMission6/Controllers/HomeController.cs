@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Http.HttpResults;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MovieMission6.Models;
-using SQLitePCL;
-using System.Diagnostics;
+
 
 namespace MovieMission6.Controllers
 {
@@ -47,19 +45,29 @@ namespace MovieMission6.Controllers
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 
-        public IActionResult FullCollection()
+        public IActionResult Full_Collection()
         {
-            //var movies = _content.MovieCollection.ToList();
-            //return View(movies);
-            if (ModelState.IsValid)
-                var movies = _context.MovieCollection
-                    .Where(m => m.Title != null)
-                    .OrderBy(m => m.Title).ToList();
-                return View(movies);
-            Else
-                {
-                    return View("NewMovie");
-            }
+
+            var movies = _context.MovieCollection
+                .Where(m => m.Title != null)
+                .OrderBy(m => m.Title)
+                .ToList();
+
+            return View(movies);
+        
+            ////var movies = _content.MovieCollection.ToList();
+            ////return View(movies);
+            //if (ModelState.IsValid)
+            //{
+            //    var movies = _context.MovieCollection
+            //        .Where(m => m.Title != null)
+            //        .OrderBy(m => m.Title).ToList();
+            //    return View(movies);
+            //}
+            //else
+            //{
+            //    return View("NewMovie");
+            //}
                 
         }
         [HttpGet]
@@ -80,7 +88,7 @@ namespace MovieMission6.Controllers
 
         public IActionResult Delete(int id)
         {
-            var recordToDelete = _context.MovieCollection.Single(m => m.MovieId == id);
+            var recordToDelete = _context.MovieCollection.SingleOrDefault(m => m.MovieId == id);
 
 
             return View(recordToDelete);
