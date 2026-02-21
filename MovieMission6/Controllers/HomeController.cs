@@ -36,7 +36,12 @@ namespace MovieMission6.Controllers
         [HttpPost]
         public IActionResult Collection(NewMovie newMovie)
         {
-            //_content.NewMovie.Add(newMovie);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = _context.Categories.ToList();
+                return View("Collection", newMovie);
+            }
+
             _context.MovieCollection.Add(newMovie);
             _context.SaveChanges();
 
@@ -55,7 +60,7 @@ namespace MovieMission6.Controllers
 
             return View(movies);
         
-            ////var movies = _content.MovieCollection.ToList();
+            ////var movies = _context.MovieCollection.ToList();
             ////return View(movies);
             //if (ModelState.IsValid)
             //{
@@ -73,7 +78,9 @@ namespace MovieMission6.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var recordToEdit = _context.MovieCollection.Where(m => m.MovieId == id);
+            var recordToEdit = _context.MovieCollection.FirstOrDefault(m => m.MovieId == id);
+            if (recordToEdit == null)
+                return NotFound();
 
             ViewBag.Categories = _context.Categories.ToList();
             return View("Collection", recordToEdit);
@@ -81,9 +88,15 @@ namespace MovieMission6.Controllers
         [HttpPost]
         public IActionResult Edit(NewMovie newMovie)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = _context.Categories.ToList();
+                return View("Collection", newMovie);
+            }
+
             _context.MovieCollection.Update(newMovie);
             _context.SaveChanges();
-            return RedirectToAction("FullCollection");
+            return RedirectToAction("Full_Collection");
         }
 
         public IActionResult Delete(int id)
@@ -100,7 +113,7 @@ namespace MovieMission6.Controllers
             _context.MovieCollection.Remove(newMovie);
             _context.SaveChanges();
 
-            return RedirectToAction("FullCollection");
+            return RedirectToAction("Full_Collection");
         }
     }
 }

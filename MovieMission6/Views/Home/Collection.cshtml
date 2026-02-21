@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Add to the Collection";
 }
 
@@ -33,7 +33,8 @@
     <br />
 
     <label asp-for="Year">Year: </label>
-    <input asp-for="Year" required />
+    <input asp-for="Year" type="number" min="1888" required />
+    <span asp-validation-for="Year" class="text-danger"></span>
     <br />
 
     <label asp-for="Director">Director: </label>

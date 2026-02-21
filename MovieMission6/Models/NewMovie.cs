@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieMission6.Models
@@ -19,7 +19,7 @@ namespace MovieMission6.Models
         public string Title { get; set; } = "";
 
         [Required]
-        [Range(1888, 2100, ErrorMessage = "Year must be after 1888.")]
+        [Range(1888, 2100, ErrorMessage = "Year must be 1888 or later.")]
         public int Year { get; set; }
 
         [Required]
