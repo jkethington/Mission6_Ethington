@@ -10,8 +10,8 @@ using MovieMission6.Models;
 namespace MovieMission6.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20260221184134_Initial")]
-    partial class Initial
+    [Migration("20260223181620_CopiedToPlex")]
+    partial class CopiedToPlex
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,9 @@ namespace MovieMission6.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CopiedToPlex")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
