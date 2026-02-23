@@ -31,6 +31,9 @@ namespace MovieMission6.Models
         [Required]
         public bool Edited { get; set; }
 
+        [Required]
+        public bool CopiedToPlex { get; set; }
+
         public string? LentTo { get; set; }
 
         [StringLength(25)]
