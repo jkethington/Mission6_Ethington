@@ -15,6 +15,8 @@ namespace MovieMission6.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<NewMovie>().ToTable("Movies");
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, CategoryName = "Action/Adventure" },
                 new Category { CategoryId = 2, CategoryName = "Comedy" },

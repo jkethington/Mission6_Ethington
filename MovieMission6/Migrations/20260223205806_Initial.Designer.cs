@@ -10,8 +10,8 @@ using MovieMission6.Models;
 namespace MovieMission6.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20260223181620_CopiedToPlex")]
-    partial class CopiedToPlex
+    [Migration("20260223205806_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,7 +117,7 @@ namespace MovieMission6.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("MovieCollection");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("MovieMission6.Models.NewMovie", b =>

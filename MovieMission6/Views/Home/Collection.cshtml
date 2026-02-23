@@ -9,6 +9,7 @@
 <p>Add a Movie to the collection!</p>
 
 <form method="post">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
     <input type="hidden" asp-for="MovieId" />   
     <br />
     <label asp-for="CategoryId">Movie Category</label>
@@ -58,16 +59,18 @@
 
     <label asp-for="Edited">Edited? </label>
     <select asp-for="Edited" class="form-select">
-        <option value="true">Yes</option>
+        <option value="true" >Yes</option>
         <option value="false">No</option>
     </select>
+    <span asp-validation-for="Edited" class="text-danger"></span>
     <br />
 
     <label asp-for="CopiedToPlex">Copied to Plex?</label>
     <select asp-for="CopiedToPlex" class="form-select">
-        <option value="true">Yes</option>
-        <option value="false">No</option>
+        <option value="true" >Yes</option>
+        <option value="false" >No</option>
     </select>
+    <span asp-validation-for="CopiedToPlex" class="text-danger"></span>
     <br />
 
     <label asp-for="LentTo">Lent To: </label>

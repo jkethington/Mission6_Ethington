@@ -114,7 +114,7 @@ namespace MovieMission6.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("MovieCollection");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("MovieMission6.Models.NewMovie", b =>
